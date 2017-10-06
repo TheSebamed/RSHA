@@ -1,0 +1,19 @@
+#!/bin/bash
+#
+if [[ $EUID -ne 0 ]]; then
+ echo "this has to be executed as root"
+ exit 1
+else
+echo "Sisesta faili nimi"
+read fail
+input="./$fail"
+while IFS= read line
+do
+	kasutaja=$( echo "$line" | cut -d\: -f1 )
+	parool=$( echo "$line" | cut -d\: -f2  )
+# Command that adds user without password
+echo `useradd $kasutaja `
+echo $kasutaja:$parool | chpasswd
+done < "$fail"
+fi
+
