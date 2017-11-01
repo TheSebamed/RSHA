@@ -1,0 +1,21 @@
+#!/bin/bash
+#
+#Kasutaja public kausta loomine
+
+if [ $# -ne 1 ] ; then 
+	echo "Kasutajajuhend: $0 kasutajanimi"
+else
+kasutajanimi=$1
+#
+mkdir /home/$kasutajanimi/public && chown -R $kasutajanimi:$kasutajanimi /home/$kasutajanimi/public && chmod 751 /home/$kasutajanimi/public
+##
+
+if [ $? -eq 0 ] ; then
+echo "Kasutaja nimega $kasutajanimi kodukasutas public loodud"
+cat /etc/passwd | grep $kasutajanimi
+ls -la /home/$kasutajanimi
+else 
+echo "Probleem kasutaja $kasutajanime lisamisega"
+echo "probleemi kood on $?"
+fi
+fi

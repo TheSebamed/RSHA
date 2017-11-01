@@ -1,0 +1,15 @@
+#!/bin/bash
+
+echo "mysql root password:"
+read rootpass
+
+if [[ $rootpass ]]; then
+    # create db
+    # create user
+    mysql -uroot -p $rootpass <<EOF
+CREATE DATABASE \`${1}\`;
+CREATE USER $1@localhost IDENTIFIED BY '$1';
+GRANT ALL PRIVILEGES ON \`${1}\`.* TO \`${1}\`@'localhost';
+EOF
+
+fi
